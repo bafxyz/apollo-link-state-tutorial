@@ -1,4 +1,6 @@
-import ApolloClient from "apollo-boost";
+import { HttpLink } from 'apollo-link-http';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import React from "react";
 import { ApolloProvider } from "react-apollo-hooks";
 import ReactDOM from "react-dom";
@@ -21,17 +23,10 @@ import * as serviceWorker from "./serviceWorker";
 */
 
 const client = new ApolloClient({
-  uri: "https://graphql-pokemon.now.sh",
+  link: new HttpLink({uri: 'https://graphql-pokemon.now.sh'}),
+  cache: new InMemoryCache(),
   resolvers: resolvers as any
-});
-
-// import { ApolloClient, HttpLink, InMemoryCache } from "apollo-boost";
-
-// const client = new ApolloClient({
-//   link: new HttpLink({uri: 'https://graphql-pokemon.now.sh'}),
-//   cache: new InMemoryCache(),
-//   resolvers: {}
-// })
+})
 
 const initData = () =>
   client.writeData({
