@@ -1,4 +1,5 @@
 import { HttpLink } from 'apollo-link-http';
+import { RestLink } from 'apollo-link-rest';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import React from "react";
@@ -23,7 +24,10 @@ import * as serviceWorker from "./serviceWorker";
 */
 
 const client = new ApolloClient({
-  link: new HttpLink({uri: 'https://graphql-pokemon.now.sh'}),
+  // link: new HttpLink({uri: 'https://graphql-pokemon.now.sh'}),
+  link: new RestLink({
+    uri: 'https://graphql-pokemon.now.sh'
+}),
   cache: new InMemoryCache(),
   resolvers: resolvers as any
 })
